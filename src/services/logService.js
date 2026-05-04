@@ -88,7 +88,7 @@ async function sendVerifyLog(userData, ip, userAgent) {
         { name: '\u200b', value: '\u200b', inline: true },
         { name: 'Servidor', value: `\`${guildName} (${guildId})\``, inline: false },
       )
-      .setImage('https://cdn.discordapp.com/attachments/1456775983091814451/1465858030544617564/barrinha_void_roupas.gif?ex=69d24dec&is=69d0fc6c&hm=8fe71a5fd45b3ea9a06a85d47d859b95e30a3eb7a76a3f1319019f460d7ddaca&')
+      .setImage('https://media.discordapp.net/attachments/1496825691268972695/1497568039170740274/bem_vindo_f.png')
       .setFooter({ text: `Verificação automatizada • Hoje às ${time}` })
       .setTimestamp();
 

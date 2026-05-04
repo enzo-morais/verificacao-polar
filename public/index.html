@@ -3,69 +3,151 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VØID Systems — Verificação</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Polar Store — Verificação</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     *{margin:0;padding:0;box-sizing:border-box}
-    body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000;font-family:'Inter',-apple-system,sans-serif;color:#fff;overflow:hidden}
 
-    canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0}
+    body{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(180deg, #b8d9f0 0%, #d6ecf8 40%, #e8f4fb 70%, #f0f8ff 100%);
+      font-family:'Nunito',-apple-system,sans-serif;
+      color:#2a4a6b;
+      overflow:hidden;
+    }
 
+    /* ── Snow canvas ── */
+    canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+    /* ── Clouds ── */
+    .clouds{position:fixed;bottom:0;left:0;width:100%;height:220px;z-index:0;pointer-events:none}
+    .cloud{position:absolute;bottom:0;border-radius:50% 50% 0 0;background:rgba(255,255,255,.55);filter:blur(2px)}
+    .cloud-1{width:420px;height:130px;left:-60px}
+    .cloud-2{width:320px;height:100px;left:30%;bottom:20px}
+    .cloud-3{width:500px;height:150px;right:-80px}
+    .cloud-4{width:260px;height:80px;left:55%;bottom:10px}
+
+    /* ── Container ── */
     .container{position:relative;z-index:1;width:100%;max-width:420px;padding:20px}
 
-    .card{background:rgba(10,10,10,.85);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:36px 32px;backdrop-filter:blur(12px);animation:fadeUp .6s ease}
+    /* ── Card ── */
+    .card{
+      background:rgba(255,255,255,.55);
+      border:1.5px solid rgba(255,255,255,.85);
+      border-radius:24px;
+      padding:36px 32px;
+      backdrop-filter:blur(18px);
+      -webkit-backdrop-filter:blur(18px);
+      box-shadow:0 8px 40px rgba(100,170,220,.25), 0 2px 8px rgba(100,170,220,.15), inset 0 1px 0 rgba(255,255,255,.9);
+      animation:fadeUp .6s ease;
+    }
     @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
+    /* ── Header ── */
     .card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px}
-    .logo{font-size:1.6rem;font-weight:700;letter-spacing:4px;color:#fff}
-    .badge{font-size:.65rem;font-weight:600;text-transform:uppercase;letter-spacing:1.5px;padding:4px 10px;border-radius:20px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)}
-    .success-badge{background:rgba(255,255,255,.1);color:#fff}
-    .error-badge{background:rgba(255,255,255,.1);color:#ff4444}
+    .logo{font-size:1.6rem;font-weight:800;letter-spacing:3px;color:#2a6fa8;text-shadow:0 1px 0 rgba(255,255,255,.8)}
+    .badge{
+      font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;
+      padding:4px 12px;border-radius:20px;
+      background:rgba(100,180,240,.2);color:#2a6fa8;
+      border:1px solid rgba(100,180,240,.4);
+    }
+    .success-badge{background:rgba(80,200,160,.2);color:#1a8a6a;border-color:rgba(80,200,160,.4)}
+    .error-badge{background:rgba(240,100,100,.15);color:#c03030;border-color:rgba(240,100,100,.3)}
 
-    .divider{height:1px;background:rgba(255,255,255,.06);margin-bottom:24px}
+    .divider{height:1px;background:rgba(100,170,220,.25);margin-bottom:24px}
 
-    h1{font-size:1.2rem;font-weight:600;color:#fff;margin-bottom:10px}
-    .desc{font-size:.85rem;color:rgba(255,255,255,.4);line-height:1.6;margin-bottom:24px}
-    .highlight{color:#fff;font-weight:600}
+    h1{font-size:1.2rem;font-weight:700;color:#1a4a70;margin-bottom:10px}
+    .desc{font-size:.85rem;color:#4a7a9b;line-height:1.6;margin-bottom:24px}
+    .highlight{color:#1a4a70;font-weight:700}
 
+    /* ── Features ── */
     .features{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
-    .feature{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;transition:border-color .2s}
-    .feature:hover{border-color:rgba(255,255,255,.15)}
+    .feature{
+      display:flex;align-items:flex-start;gap:12px;
+      padding:12px 14px;
+      background:rgba(255,255,255,.5);
+      border:1px solid rgba(150,210,240,.4);
+      border-radius:14px;
+      transition:border-color .2s, background .2s;
+    }
+    .feature:hover{border-color:rgba(80,160,220,.6);background:rgba(255,255,255,.7)}
     .feature-icon{display:flex;align-items:center;justify-content:center;width:32px;height:32px;flex-shrink:0;margin-top:1px}
-    .feature-icon svg{width:18px;height:18px;stroke:rgba(255,255,255,.5);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
-    .feature strong{display:block;font-size:.78rem;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:2px}
-    .feature p{font-size:.72rem;color:rgba(255,255,255,.3);line-height:1.4}
+    .feature-icon svg{width:18px;height:18px;stroke:#4a9fd4;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .feature strong{display:block;font-size:.78rem;font-weight:700;color:#1a4a70;margin-bottom:2px}
+    .feature p{font-size:.72rem;color:#5a8aaa;line-height:1.4}
 
-    .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px;background:#fff;color:#000;text-decoration:none;border-radius:10px;font-size:.85rem;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:all .2s}
-    .btn:hover{background:rgba(255,255,255,.9);transform:translateY(-1px);box-shadow:0 4px 24px rgba(255,255,255,.1)}
-    .btn svg{opacity:.7}
+    /* ── Button ── */
+    .btn{
+      display:flex;align-items:center;justify-content:center;gap:10px;
+      width:100%;padding:14px;
+      background:linear-gradient(135deg,#5aabdf 0%,#3a8fc4 100%);
+      color:#fff;text-decoration:none;border-radius:14px;
+      font-size:.88rem;font-weight:700;font-family:inherit;border:none;cursor:pointer;
+      transition:all .2s;
+      box-shadow:0 4px 16px rgba(60,140,200,.35), inset 0 1px 0 rgba(255,255,255,.3);
+    }
+    .btn:hover{
+      background:linear-gradient(135deg,#6bbce8 0%,#4a9fd4 100%);
+      transform:translateY(-2px);
+      box-shadow:0 8px 24px rgba(60,140,200,.45), inset 0 1px 0 rgba(255,255,255,.3);
+    }
+    .btn svg{opacity:.9}
 
-    .btn-retry{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.15)}
-    .btn-retry:hover{background:rgba(255,255,255,.05);box-shadow:none}
+    .btn-retry{
+      background:linear-gradient(135deg,#e87a7a 0%,#c85050 100%);
+      box-shadow:0 4px 16px rgba(200,80,80,.3), inset 0 1px 0 rgba(255,255,255,.3);
+    }
+    .btn-retry:hover{
+      background:linear-gradient(135deg,#f08888 0%,#d46060 100%);
+      box-shadow:0 8px 24px rgba(200,80,80,.4), inset 0 1px 0 rgba(255,255,255,.3);
+    }
 
-    .footer-text{text-align:center;font-size:.65rem;color:rgba(255,255,255,.2);margin-top:16px}
+    .footer-text{text-align:center;font-size:.65rem;color:#7aaac8;margin-top:16px}
 
+    /* ── Status icons ── */
     .status-icon{text-align:center;margin-bottom:16px}
-    .status-icon svg{width:48px;height:48px;stroke:#fff;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+    .status-icon svg{width:48px;height:48px;stroke:#3a8fc4;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
     .success-anim{animation:pop .4s ease}
     @keyframes pop{0%{transform:scale(.5);opacity:0}70%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
 
-    .success-box{display:flex;align-items:center;gap:10px;padding:14px 16px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px}
-    .success-box svg{width:18px;height:18px;stroke:rgba(255,255,255,.5);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
-    .success-box p{font-size:.78rem;color:rgba(255,255,255,.35)}
+    .success-box{
+      display:flex;align-items:center;gap:10px;
+      padding:14px 16px;
+      background:rgba(80,200,160,.1);
+      border:1px solid rgba(80,200,160,.3);
+      border-radius:12px;
+    }
+    .success-box svg{width:18px;height:18px;stroke:#1a8a6a;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+    .success-box p{font-size:.78rem;color:#3a7a6a}
 
     .hidden{display:none!important}
     @media(max-width:480px){.card{padding:28px 20px}}
   </style>
 </head>
 <body>
-  <canvas id="stars"></canvas>
+
+  <!-- Snow canvas -->
+  <canvas id="snow"></canvas>
+
+  <!-- Decorative clouds at bottom -->
+  <div class="clouds">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="cloud cloud-4"></div>
+  </div>
 
   <div class="container">
+
+    <!-- Waiting state -->
     <div id="state-waiting" class="card">
       <div class="card-header">
-        <div class="logo">VØID</div>
-        <span class="badge">Systems</span>
+        <div class="logo">POLAR</div>
+        <span class="badge">Store</span>
       </div>
       <div class="divider"></div>
       <h1>Verificação de Identidade</h1>
@@ -91,13 +173,16 @@
       <p class="footer-text">Ao continuar, você concorda com nossos termos de uso.</p>
     </div>
 
+    <!-- Success state -->
     <div id="state-success" class="card hidden">
       <div class="card-header">
-        <div class="logo">VØID</div>
-        <span class="badge success-badge">Verificado</span>
+        <div class="logo">POLAR</div>
+        <span class="badge success-badge">Verificado ✓</span>
       </div>
       <div class="divider"></div>
-      <div class="status-icon success-anim"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <div class="status-icon success-anim">
+        <svg viewBox="0 0 24 24" style="stroke:#1a8a6a"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      </div>
       <h1>Verificação Concluída</h1>
       <p class="desc">Bem-vindo, <span id="username" class="highlight"></span>! Você foi adicionado ao servidor e recebeu seu cargo automaticamente.</p>
       <div class="success-box">
@@ -106,60 +191,124 @@
       </div>
     </div>
 
+    <!-- Error state -->
     <div id="state-error" class="card hidden">
       <div class="card-header">
-        <div class="logo">VØID</div>
+        <div class="logo">POLAR</div>
         <span class="badge error-badge">Erro</span>
       </div>
       <div class="divider"></div>
-      <div class="status-icon"><svg viewBox="0 0 24 24" style="stroke:rgba(255,255,255,.6)"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+      <div class="status-icon">
+        <svg viewBox="0 0 24 24" style="stroke:#c03030"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+      </div>
       <h1>Falha na Autenticação</h1>
       <p class="desc" id="error-msg">Ocorreu um erro durante o processo.</p>
       <a href="/auth/discord" class="btn btn-retry">Tentar Novamente</a>
     </div>
+
   </div>
 
   <script>
-    // Stars background
+    /* ── Snowflakes ── */
     (function(){
-      var c=document.getElementById('stars'),x=c.getContext('2d');
-      var stars=[];var count=200;
-      function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
-      window.addEventListener('resize',resize);resize();
-      for(var i=0;i<count;i++){
-        stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+.3,speed:Math.random()*.3+.05,opacity:Math.random()*.6+.2});
+      var canvas = document.getElementById('snow');
+      var ctx = canvas.getContext('2d');
+      var flakes = [];
+      var COUNT = 120;
+
+      function resize(){
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
       }
-      function draw(){
-        x.clearRect(0,0,c.width,c.height);
-        for(var i=0;i<stars.length;i++){
-          var s=stars[i];
-          s.y-=s.speed;
-          if(s.y<-2){s.y=c.height+2;s.x=Math.random()*c.width}
-          // Twinkle
-          s.opacity+=((Math.random()-.5)*.02);
-          if(s.opacity<.1)s.opacity=.1;
-          if(s.opacity>.8)s.opacity=.8;
-          x.beginPath();
-          x.arc(s.x,s.y,s.r,0,Math.PI*2);
-          x.fillStyle='rgba(255,255,255,'+s.opacity+')';
-          x.fill();
+      window.addEventListener('resize', resize);
+      resize();
+
+      /* Snowflake shapes: draw a 6-arm star */
+      function drawFlake(ctx, x, y, r, opacity, rotation){
+        ctx.save();
+        ctx.translate(x, y);
+        ctx.rotate(rotation);
+        ctx.globalAlpha = opacity;
+        ctx.strokeStyle = '#fff';
+        ctx.lineWidth = r * 0.18;
+        ctx.lineCap = 'round';
+        for(var i = 0; i < 6; i++){
+          ctx.save();
+          ctx.rotate((Math.PI / 3) * i);
+          ctx.beginPath();
+          ctx.moveTo(0, 0);
+          ctx.lineTo(0, -r);
+          /* small branches */
+          ctx.moveTo(0, -r * 0.55);
+          ctx.lineTo(r * 0.22, -r * 0.77);
+          ctx.moveTo(0, -r * 0.55);
+          ctx.lineTo(-r * 0.22, -r * 0.77);
+          ctx.stroke();
+          ctx.restore();
         }
-        requestAnimationFrame(draw);
+        ctx.restore();
       }
-      draw();
+
+      for(var i = 0; i < COUNT; i++){
+        flakes.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          r: Math.random() * 10 + 4,
+          speed: Math.random() * 0.8 + 0.3,
+          drift: (Math.random() - 0.5) * 0.4,
+          opacity: Math.random() * 0.5 + 0.25,
+          rotation: Math.random() * Math.PI * 2,
+          rotSpeed: (Math.random() - 0.5) * 0.01,
+          wobble: Math.random() * Math.PI * 2,
+          wobbleSpeed: Math.random() * 0.02 + 0.005,
+        });
+      }
+
+      function animate(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for(var i = 0; i < flakes.length; i++){
+          var f = flakes[i];
+          f.wobble += f.wobbleSpeed;
+          f.x += f.drift + Math.sin(f.wobble) * 0.4;
+          f.y += f.speed;
+          f.rotation += f.rotSpeed;
+          if(f.y > canvas.height + f.r){
+            f.y = -f.r;
+            f.x = Math.random() * canvas.width;
+          }
+          if(f.x > canvas.width + f.r) f.x = -f.r;
+          if(f.x < -f.r) f.x = canvas.width + f.r;
+          drawFlake(ctx, f.x, f.y, f.r, f.opacity, f.rotation);
+        }
+        requestAnimationFrame(animate);
+      }
+      animate();
     })();
 
-    // App logic
-    document.addEventListener('DOMContentLoaded',function(){
-      var p=new URLSearchParams(window.location.search);
-      var s=p.get('status');
-      if(!s)return;
-      var w=document.getElementById('state-waiting');
-      var ok=document.getElementById('state-success');
-      var er=document.getElementById('state-error');
-      if(s==='success'){w.classList.add('hidden');ok.classList.remove('hidden');document.getElementById('username').textContent=decodeURIComponent(p.get('user')||'Usuário')}
-      else if(s==='error'){w.classList.add('hidden');er.classList.remove('hidden');var m=p.get('msg');var ms={auth_denied:'Você cancelou a autenticação.',invalid_state:'Sessão expirada. Tente novamente.',server_error:'Erro interno. Tente mais tarde.'};document.getElementById('error-msg').textContent=ms[m]||'Erro inesperado.'}
-      window.history.replaceState({},'','/');
+    /* ── App logic ── */
+    document.addEventListener('DOMContentLoaded', function(){
+      var p = new URLSearchParams(window.location.search);
+      var s = p.get('status');
+      if(!s) return;
+      var w = document.getElementById('state-waiting');
+      var ok = document.getElementById('state-success');
+      var er = document.getElementById('state-error');
+      if(s === 'success'){
+        w.classList.add('hidden');
+        ok.classList.remove('hidden');
+        document.getElementById('username').textContent = decodeURIComponent(p.get('user') || 'Usuário');
+      } else if(s === 'error'){
+        w.classList.add('hidden');
+        er.classList.remove('hidden');
+        var m = p.get('msg');
+        var ms = {
+          auth_denied: 'Você cancelou a autenticação.',
+          invalid_state: 'Sessão expirada. Tente novamente.',
+          server_error: 'Erro interno. Tente mais tarde.'
+        };
+        document.getElementById('error-msg').textContent = ms[m] || 'Erro inesperado.';
+      }
+      window.history.replaceState({}, '', '/');
     });
   </script>
 </body>

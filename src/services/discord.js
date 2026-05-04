@@ -25,7 +25,11 @@ async function exchangeCode(code) {
       redirect_uri: process.env.REDIRECT_URI,
     }),
   });
-  if (!res.ok) throw new Error('Failed to exchange code');
+  if (!res.ok) {
+    const body = await res.text();
+    console.error(`exchangeCode failed [${res.status}]:`, body);
+    throw new Error(`Failed to exchange code: ${res.status} - ${body}`);
+  }
   return res.json();
 }
 

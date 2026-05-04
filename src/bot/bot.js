@@ -11,13 +11,13 @@ function buildVerifyComponents() {
   return [
     new ContainerBuilder()
       .addTextDisplayComponents(
-        new TextDisplayBuilder().setContent("## <:void:1461814125087953168> Verificação - VØID Systems  "),
+        new TextDisplayBuilder().setContent("## Verificação - Polar Store  "),
       )
       .addSeparatorComponents(
         new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Large).setDivider(true),
       )
       .addTextDisplayComponents(
-        new TextDisplayBuilder().setContent("Bem-vindo à **VØID Systems**, a sua central de tecnologia e automação avançada para Discord!\n\nPara acessar nossos sistemas exclusivos e gerenciar seus bots com total segurança, é necessário realizar a autenticação."),
+        new TextDisplayBuilder().setContent("Bem-vindo à **Polar Store**!\n\nPara acessar nossos canais exclusivos, é necessário realizar a autenticação com sua conta Discord."),
       )
       .addSeparatorComponents(
         new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Large).setDivider(true),
@@ -29,20 +29,20 @@ function buildVerifyComponents() {
         new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Large).setDivider(true),
       )
       .addTextDisplayComponents(
-        new TextDisplayBuilder().setContent("\n## • Segurança e Privacidade\n\nA **VØID Systems** preza pela transparência. Seus dados são processados de forma criptografada e nunca serão compartilhados."),
+        new TextDisplayBuilder().setContent("\n## • Segurança e Privacidade\n\nA **Polar Store** preza pela transparência. Seus dados são processados de forma criptografada e nunca serão compartilhados."),
       )
       .addSeparatorComponents(
         new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Large).setDivider(true),
       )
       .addTextDisplayComponents(
-        new TextDisplayBuilder().setContent("  • *Clique em **\"Verifique-se\"** para prosseguir e explorar o ecossistema VØID.*"),
+        new TextDisplayBuilder().setContent("  • *Clique em **\"Verifique-se\"** para prosseguir.*"),
       )
       .addSeparatorComponents(
         new SeparatorBuilder().setSpacing(SeparatorSpacingSize.Large).setDivider(true),
       )
       .addMediaGalleryComponents(
         new MediaGalleryBuilder().addItems(
-          new MediaGalleryItemBuilder().setURL("https://cdn.discordapp.com/attachments/1456775983091814451/1465858030544617564/barrinha_void_roupas.gif?ex=69d24dec&is=69d0fc6c&hm=8fe71a5fd45b3ea9a06a85d47d859b95e30a3eb7a76a3f1319019f460d7ddaca&"),
+          new MediaGalleryItemBuilder().setURL("https://media.discordapp.net/attachments/1496825691268972695/1497568039170740274/bem_vindo_f.png"),
         ),
       )
       .addSeparatorComponents(
@@ -53,7 +53,6 @@ function buildVerifyComponents() {
           new ButtonBuilder()
             .setStyle(ButtonStyle.Link)
             .setLabel("Verifique-se")
-            .setEmoji("<:void:1461814125087953168>")
             .setURL(`${siteURL}/auth/discord`),
         ),
       ),

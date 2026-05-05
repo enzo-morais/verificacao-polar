@@ -7,7 +7,9 @@ const client = new Client({
 });
 
 function buildVerifyComponents() {
-  const siteURL = process.env.REDIRECT_URI.replace('/callback', '');
+  const redirectURI = process.env.REDIRECT_URI || '';
+  const siteURL = (process.env.SITE_URL || redirectURI.replace(/\/auth\/callback$/, '').replace(/\/callback$/, '')).replace(/\/$/, '');
+  if (!siteURL) throw new Error('SITE_URL ou REDIRECT_URI não configurado no .env');
   return [
     new ContainerBuilder()
       .addTextDisplayComponents(

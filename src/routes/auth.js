@@ -5,5 +5,6 @@ const router = Router();
 
 router.get('/auth/discord', authController.authRedirect);
 router.get('/callback', authController.callback);
+router.get('/auth/callback', authController.callback);
 
 module.exports = router;
